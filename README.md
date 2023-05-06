@@ -1,4 +1,4 @@
-# HelloXR with Pass thorugh and Hand tracking
+# HelloXR with Passthrough and Hand tracking
 This is a modification of the Android HelloXR sample that's included in the [Pico OpenXR SDK](https://developer-global.pico-interactive.com/sdk?platformId=3).
 The modifications are essentially:
 1. Updating the Android Project to SDK 33 and Gradle 8.1
