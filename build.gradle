@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdk 33
+    buildToolsVersion '33.0.2'
+    namespace 'com.khronos.hello_xr'
+    defaultConfig {
+        applicationId "com.khronos.hello_xr"
+        minSdkVersion 26
+        versionCode  201
+        versionName  "2.0.1"
+
+
+        shaders {
+            glslcArgs.addAll(['-c', '-g'])
+        }
+        externalNativeBuild {
+            cmake {
+                abiFilters "armeabi-v7a","arm64-v8a"
+                arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static'
+            }
+        }
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+	
+    sourceSets {
+        main {
+            java.srcDirs    = ['hello_xr/java']
+            jni.srcDirs     = ['hello_xr']
+            jniLibs.srcDirs = ['openxr_loader']
+            manifest.srcFile 'hello_xr/AndroidManifest.xml'
+        }
+    }
+	
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'openxr_loader', include: ['*.jar','*.aar'])
+}
+
