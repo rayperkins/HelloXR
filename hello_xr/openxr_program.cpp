@@ -624,7 +624,7 @@ struct OpenXrProgram : IOpenXrProgram {
         createInfoEXT.hand = XR_HAND_LEFT_EXT;
         CHECK_XRCMD(pfnXrCreateHandTrackerEXT( m_session, &createInfoEXT, &m_xrHandTrackerEXTLeft));
         // create right
-        createInfoEXT.hand = XR_HAND_LEFT_EXT;
+        createInfoEXT.hand = XR_HAND_RIGHT_EXT;
         CHECK_XRCMD(pfnXrCreateHandTrackerEXT( m_session, &createInfoEXT, &m_xrHandTrackerEXTRight));
     }
 
@@ -1115,7 +1115,7 @@ struct OpenXrProgram : IOpenXrProgram {
                 }
 
                 // draw hand joints
-                float scale = 0.2f;
+                float scale = 0.02f;
                 for(int i = 0; i < locationsEXT.jointCount; i++) {
                     cubes.push_back(Cube{locationsEXT.jointLocations[i].pose, {scale, scale, scale}});
                 }
