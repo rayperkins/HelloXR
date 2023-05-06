@@ -1108,10 +1108,16 @@ struct OpenXrProgram : IOpenXrProgram {
                     continue;
                 }
 
-                if(locationsEXT.isActive && locationsEXT.jointCount > 0)
+                if(!locationsEXT.isActive)
                 {
-                    float scale = 0.2f;
-                    cubes.push_back(Cube{locationsEXT.jointLocations[0].pose, {scale, scale, scale}});
+                    Log::Write(Log::Level::Verbose, Fmt("Hand %d is inactive", hand));
+                    continue;
+                }
+
+                // draw hand joints
+                float scale = 0.2f;
+                for(int i = 0; i < locationsEXT.jointCount; i++) {
+                    cubes.push_back(Cube{locationsEXT.jointLocations[i].pose, {scale, scale, scale}});
                 }
             }
         }
